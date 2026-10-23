@@ -6,6 +6,21 @@ public static partial class VerifyOfficeIMO
 {
     public static bool Initialized { get; private set; }
 
+    /// <summary>
+    /// Fonts used when rendering png, ahead of those installed on the machine. A document names its
+    /// fonts (Office's default is Aptos) and a machine without them renders a fallback, so a render made
+    /// where Office is installed differs from one made on a build server. Adding the fonts a document
+    /// uses here makes the render the same everywhere.
+    /// </summary>
+    public static OfficeFontFaceCollection Fonts { get; } = new();
+
+    static T Render<T>(T options)
+        where T : OfficeImageExportOptions
+    {
+        options.Fonts = Fonts;
+        return options;
+    }
+
     public static void Initialize()
     {
         if (Initialized)
@@ -175,7 +190,7 @@ public static partial class VerifyOfficeIMO
         // Word renders every page in one pass, so the pages not wanted are dropped after
         if (!context.IsDerivedTargetExcluded("png"))
         {
-            var pages = document.ExportImages(OfficeImageExportFormat.Png);
+            var pages = document.ExportImages(OfficeImageExportFormat.Png, Render(new WordImageExportOptions()));
             for (var index = 0; index < pages.Count; index++)
             {
                 var page = index + 1;
@@ -232,7 +247,7 @@ public static partial class VerifyOfficeIMO
 
             if (includePng)
             {
-                derived.Add(Png(sheet.ExportImage(OfficeImageExportFormat.Png), sheet.Name));
+                derived.Add(Png(sheet.ExportImage(OfficeImageExportFormat.Png, Render(new ExcelWorksheetImageExportOptions())), sheet.Name));
             }
         }
 
@@ -286,7 +301,7 @@ public static partial class VerifyOfficeIMO
 
             if (includePng)
             {
-                derived.Add(Png(slide.ExportImage(OfficeImageExportFormat.Png), $"Slide{page}"));
+                derived.Add(Png(slide.ExportImage(OfficeImageExportFormat.Png, Render(new PowerPointImageExportOptions())), $"Slide{page}"));
             }
         }
 

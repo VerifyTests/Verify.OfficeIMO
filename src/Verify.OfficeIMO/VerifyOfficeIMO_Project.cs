@@ -53,7 +53,7 @@ public static partial class VerifyOfficeIMO
                     context,
                     pages.Count,
                     null,
-                    _ => pages[_].Drawing.ExportImage(OfficeImageExportFormat.Png).Bytes));
+                    _ => pages[_].Drawing.ExportImage(OfficeImageExportFormat.Png, Render(new OfficeImageExportOptions())).Bytes));
         }
 
         Target? source = null;

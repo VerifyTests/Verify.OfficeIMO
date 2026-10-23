@@ -38,7 +38,7 @@ public static partial class VerifyOfficeIMO
             context,
             pages.Count,
             _ => pages[_].ExtractText(),
-            _ => pages[_].ExportImage(OfficeImageExportFormat.Png).Bytes);
+            _ => pages[_].ExportImage(OfficeImageExportFormat.Png, Render(new PdfImageExportOptions())).Bytes);
         return new(info, derived);
     }
 }

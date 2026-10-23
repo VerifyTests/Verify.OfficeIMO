@@ -33,7 +33,7 @@ public static partial class VerifyOfficeIMO
 
         if (!context.IsDerivedTargetExcluded("png"))
         {
-            var options = new HtmlRenderOptions();
+            var options = Render(new HtmlRenderOptions());
             document.ConfigureRenderOptions(options);
             var image = document.HtmlDocument.ExportImage(OfficeImageExportFormat.Png, options);
             derived.Add(new("png", new MemoryStream(image.Bytes), "Page"));

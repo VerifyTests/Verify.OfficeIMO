@@ -46,7 +46,7 @@ public static partial class VerifyOfficeIMO
             context,
             chapters.Count,
             _ => chapters[_].Text,
-            Rendered(() => document.ExportImages(OfficeImageExportFormat.Png)),
+            Rendered(() => document.ExportImages(OfficeImageExportFormat.Png, Render(new EpubImageExportOptions()))),
             "Chapter");
         return new(info, derived);
     }

@@ -41,7 +41,7 @@ public static partial class VerifyOfficeIMO
                     .Select(_ => _.StoryId)
                     .Distinct()
                     .Select(_ => stories.TryGetValue(_, out var text) ? text : "")),
-            _ => pages[_].Drawing.ExportImage(OfficeImageExportFormat.Png).Bytes);
+            _ => pages[_].Drawing.ExportImage(OfficeImageExportFormat.Png, Render(new OfficeImageExportOptions())).Bytes);
         return new(info, derived);
     }
 }

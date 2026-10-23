@@ -45,7 +45,7 @@ public static partial class VerifyOfficeIMO
 
         if (!context.IsDerivedTargetExcluded("png"))
         {
-            derived.Add(new("png", new MemoryStream(document.ExportImage(OfficeImageExportFormat.Png).Bytes), "Body"));
+            derived.Add(new("png", new MemoryStream(document.ExportImage(OfficeImageExportFormat.Png, Render(new EmailImageExportOptions())).Bytes), "Body"));
         }
 
         var source = Source("eml", document.ToBytes(), context);

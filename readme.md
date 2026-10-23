@@ -40,7 +40,7 @@ Extends [Verify](https://github.com/VerifyTests/Verify) to allow verification of
 public static void Initialize() =>
     VerifyOfficeIMO.Initialize();
 ```
-<sup><a href='/src/Tests/ModuleInitializer.cs#L3-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-enable' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ModuleInitializer.cs#L5-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-enable' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -75,6 +75,37 @@ Images are rendered by OfficeIMO itself, with no Office install needed. OpenDocu
 Streams and files with any of the extensions above are loaded via OfficeIMO and verified the same way. Other Verify plugins that register the same extensions (for example `pdf` or `xlsx`) will conflict.
 
 What is left out is controlled by Verify's own settings: see [Leaving out what was derived](https://github.com/VerifyTests/Verify/blob/main/docs/paged-documents.md#leaving-out-what-was-derived) and [Excluding targets](https://github.com/VerifyTests/Verify/blob/main/docs/converter.md#excluding-targets). Pages, sheets, slides, and chapters are pages, so `PagesToInclude` limits them.
+
+
+### Fonts
+
+A png is rendered with the fonts installed on the machine. Office's default font, Aptos, is installed only with Office, so a build server without Office renders a fallback, and the png differs from one made on a developer machine. Fonts added to `VerifyOfficeIMO.Fonts` are used ahead of installed ones, so registering the fonts the documents use makes the png the same everywhere:
+
+<!-- snippet: Fonts -->
+<a id='snippet-Fonts'></a>
+```cs
+// Aptos is Office's default font, but is installed only with Office, so a build server renders a
+// fallback. Registering it makes the png the same everywhere.
+[ModuleInitializer]
+public static void InitializeFonts()
+{
+    var directory = Path.Combine(ProjectFiles.ProjectDirectory, "..", "Fonts");
+    AddFont(directory, "Aptos", "Aptos_400.ttf", OfficeFontStyle.Regular);
+    AddFont(directory, "Aptos", "Aptos_400_Italic.ttf", OfficeFontStyle.Italic);
+    AddFont(directory, "Aptos", "Aptos_700.ttf", OfficeFontStyle.Bold);
+    AddFont(
+        directory,
+        "Aptos",
+        "Aptos_700_Italic.ttf",
+        OfficeFontStyle.Bold | OfficeFontStyle.Italic);
+    AddFont(directory, "Aptos Display", "Aptos_Display_700.ttf", OfficeFontStyle.Bold);
+}
+
+static void AddFont(string directory, string family, string file, OfficeFontStyle style) =>
+    VerifyOfficeIMO.Fonts.Add(family, File.ReadAllBytes(Path.Combine(directory, file)), style);
+```
+<sup><a href='/src/Tests/ModuleInitializer.cs#L13-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-Fonts' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ### WordDocument

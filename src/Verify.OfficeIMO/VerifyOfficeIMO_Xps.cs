@@ -28,7 +28,7 @@ public static partial class VerifyOfficeIMO
             context,
             pages.Count,
             _ => pages[_].ExtractText(),
-            _ => pages[_].ExportImage(OfficeImageExportFormat.Png).Bytes);
+            _ => pages[_].ExportImage(OfficeImageExportFormat.Png, Render(new OfficeImageExportOptions())).Bytes);
         return new(info, DeterministicSource("xps", document.Save(), context), derived);
     }
 }

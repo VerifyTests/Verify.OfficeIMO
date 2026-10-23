@@ -30,7 +30,7 @@ public static partial class VerifyOfficeIMO
                 pages[_].Shapes
                     .Select(_ => _.Text)
                     .Where(_ => !string.IsNullOrEmpty(_))),
-            _ => pages[_].ToImage().AsPng().Export().Bytes);
+            _ => pages[_].ToImage(Render(new VisioImageExportOptions())).AsPng().Export().Bytes);
         return new(info, DeterministicSource("vsdx", document.ToBytes(), context), derived);
     }
 }

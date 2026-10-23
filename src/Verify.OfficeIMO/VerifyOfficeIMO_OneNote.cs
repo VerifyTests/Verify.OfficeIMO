@@ -26,7 +26,7 @@ public static partial class VerifyOfficeIMO
             context,
             pages.Count,
             _ => ToText(pages[_]),
-            Rendered(() => section.ExportImages(OfficeImageExportFormat.Png)));
+            Rendered(() => section.ExportImages(OfficeImageExportFormat.Png, Render(new OneNotePageBatchRenderingOptions()))));
         return new(info, derived);
     }
 
