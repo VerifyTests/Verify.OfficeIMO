@@ -2,7 +2,7 @@ using WordParagraph = DocumentFormat.OpenXml.Wordprocessing.Paragraph;
 
 namespace VerifyTests;
 
-public static class VerifyOfficeIMO
+public static partial class VerifyOfficeIMO
 {
     public static bool Initialized { get; private set; }
 
@@ -27,6 +27,90 @@ public static class VerifyOfficeIMO
         VerifierSettings.RegisterFileConverter<WordDocument>(Convert);
         VerifierSettings.RegisterFileConverter<ExcelDocument>(Convert);
         VerifierSettings.RegisterFileConverter<PowerPointPresentation>(Convert);
+        RegisterAccess();
+        RegisterDjVu();
+        RegisterEmail();
+        RegisterEpub();
+        RegisterIWork();
+        RegisterMhtml();
+        RegisterOneNote();
+        RegisterOpenDocument();
+        RegisterPdf();
+        RegisterProject();
+        RegisterPublisher();
+        RegisterRtf();
+        RegisterVisio();
+        RegisterXps();
+    }
+
+    // Each page, slide, or sheet is a page of the document, so PagesToInclude limits it, and the
+    // txt and png of a page are named for it, so a second page adds files rather than renaming the first.
+    // png is given the index of the page, so a format that renders every page in one pass can render
+    // lazily, and not at all when png is excluded
+    static List<Target> Pages(
+        IReadOnlyDictionary<string, object> context,
+        int count,
+        Func<int, string>? text,
+        Func<int, byte[]>? png,
+        string prefix = "Page")
+    {
+        List<Target> derived = [];
+        var includeText = text != null && !context.IsDerivedTargetExcluded("txt");
+        var includePng = png != null && !context.IsDerivedTargetExcluded("png");
+        for (var index = 0; index < count; index++)
+        {
+            var page = index + 1;
+            if (!context.IsPageIncluded(page))
+            {
+                continue;
+            }
+
+            var name = $"{prefix}{page}";
+            if (includeText)
+            {
+                derived.Add(new("txt", text!(index), name));
+            }
+
+            if (includePng)
+            {
+                derived.Add(new("png", new MemoryStream(png!(index)), name));
+            }
+        }
+
+        return derived;
+    }
+
+    static Func<int, byte[]> Rendered(Func<IReadOnlyList<OfficeImageExportResult>> render)
+    {
+        var images = new Lazy<IReadOnlyList<OfficeImageExportResult>>(render);
+        return _ => images.Value[_].Bytes;
+    }
+
+    // for formats that are not an Open Packaging Convention zip, so cannot be made deterministic
+    static Target? Source(string extension, byte[] bytes, IReadOnlyDictionary<string, object> context)
+    {
+        if (context.IsTargetExcluded(extension))
+        {
+            return null;
+        }
+
+        return new(extension, new MemoryStream(bytes));
+    }
+
+    static Target? DeterministicSource(string extension, byte[] bytes, IReadOnlyDictionary<string, object> context)
+    {
+        using var stream = new MemoryStream(bytes);
+        return Source(extension, stream, context);
+    }
+
+    static string? NullIfEmpty(string? value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return null;
+        }
+
+        return value;
     }
 
     // A document loaded here belongs to the conversion, so it is disposed once Verify is done with it.

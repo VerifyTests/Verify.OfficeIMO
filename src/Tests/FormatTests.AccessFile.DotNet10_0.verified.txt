@@ -1,0 +1,25 @@
+﻿{
+  Format: Accdb,
+  Tables: [
+    {
+      Name: Groups,
+      RowCount: 1,
+      Columns: [
+        Id: Int32,
+        Label: ShortText
+      ]
+    },
+    {
+      Name: Contacts,
+      RowCount: 2,
+      Columns: [
+        Id: Int32,
+        GroupId: Int32,
+        DisplayName: ShortText,
+        Amount: Currency,
+        CreatedAt: DateTime,
+        Active: Boolean
+      ]
+    }
+  ]
+}

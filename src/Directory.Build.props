@@ -5,7 +5,7 @@
     <Version>0.1.0</Version>
     <LangVersion>preview</LangVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>
-    <PackageTags>OfficeIMO, Word, Excel, PowerPoint, Verify</PackageTags>
+    <PackageTags>OfficeIMO, Word, Excel, PowerPoint, Visio, PDF, OpenDocument, Verify</PackageTags>
     <Description>Extends Verify (https://github.com/VerifyTests/Verify) to allow verification via OfficeIMO (https://github.com/EvotecIT/OfficeIMO)</Description>
     <ResolveAssemblyReferencesSilent>true</ResolveAssemblyReferencesSilent>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>

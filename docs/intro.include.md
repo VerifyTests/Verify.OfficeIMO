@@ -1,1 +1,1 @@
-Extends [Verify](https://github.com/VerifyTests/Verify) to allow verification of Word, Excel, and PowerPoint documents via [OfficeIMO](https://github.com/EvotecIT/OfficeIMO).
+Extends [Verify](https://github.com/VerifyTests/Verify) to allow verification of Word, Excel, PowerPoint, Visio, PDF, XPS, OpenDocument, RTF, EPUB, Email, MHTML, OneNote, Project, Publisher, DjVu, iWork, and Access documents via [OfficeIMO](https://github.com/EvotecIT/OfficeIMO).

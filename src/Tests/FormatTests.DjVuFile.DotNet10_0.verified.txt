@@ -1,0 +1,10 @@
+﻿{
+  Pages: [
+    {
+      Title: 1,
+      Width: 128,
+      Height: 96,
+      Dpi: 300
+    }
+  ]
+}

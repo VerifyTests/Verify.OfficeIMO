@@ -1,0 +1,4 @@
+﻿{
+  Subject: The Subject,
+  ContentLocation: https://example.com/page.html
+}

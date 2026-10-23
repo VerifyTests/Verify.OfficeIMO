@@ -5,6 +5,22 @@
   <ItemGroup>
     <PackageReference Include="DeterministicIoPackaging" />
     <PackageReference Include="DocumentFormat.OpenXml" />
+    <PackageReference Include="OfficeIMO.Access" />
+    <PackageReference Include="OfficeIMO.DjVu" />
+    <PackageReference Include="OfficeIMO.Email" />
+    <PackageReference Include="OfficeIMO.Email.Image" />
+    <PackageReference Include="OfficeIMO.Epub" />
+    <PackageReference Include="OfficeIMO.Epub.Image" />
+    <PackageReference Include="OfficeIMO.IWork" />
+    <PackageReference Include="OfficeIMO.Mhtml" />
+    <PackageReference Include="OfficeIMO.OneNote" />
+    <PackageReference Include="OfficeIMO.OpenDocument" />
+    <PackageReference Include="OfficeIMO.Pdf" />
+    <PackageReference Include="OfficeIMO.Project" />
+    <PackageReference Include="OfficeIMO.Publisher" />
+    <PackageReference Include="OfficeIMO.Rtf" />
+    <PackageReference Include="OfficeIMO.Visio" />
+    <PackageReference Include="OfficeIMO.Xps" />
     <PackageReference Include="OfficeIMO.Excel" />
     <PackageReference Include="OfficeIMO.PowerPoint" />
     <PackageReference Include="OfficeIMO.Word" />

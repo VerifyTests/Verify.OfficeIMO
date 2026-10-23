@@ -6,8 +6,25 @@
 *.xlsx binary
 *.pptx binary
 *.ppt binary
+*.vsdx binary
+*.xps binary
+*.epub binary
+*.odt binary
+*.ods binary
+*.odp binary
+*.odg binary
+*.one binary
+*.pub binary
+*.djvu binary
+*.accdb binary
+*.mpp binary
+*.key binary
 
 *.verified.csv text eol=lf working-tree-encoding=UTF-8
+*.verified.eml text eol=lf working-tree-encoding=UTF-8
+*.verified.html text eol=lf working-tree-encoding=UTF-8
+*.verified.mht text eol=lf working-tree-encoding=UTF-8
+*.verified.rtf text eol=lf working-tree-encoding=UTF-8
 *.verified.txt text eol=lf working-tree-encoding=UTF-8
 *.verified.xml text eol=lf working-tree-encoding=UTF-8
 

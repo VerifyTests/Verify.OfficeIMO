@@ -4,7 +4,7 @@
 [![Build status](https://github.com/VerifyTests/Verify.OfficeIMO/actions/workflows/build.yml/badge.svg)](https://github.com/VerifyTests/Verify.OfficeIMO/actions/workflows/build.yml)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.OfficeIMO.svg)](https://www.nuget.org/packages/Verify.OfficeIMO/)
 
-Extends [Verify](https://github.com/VerifyTests/Verify) to allow verification of Word, Excel, and PowerPoint documents via [OfficeIMO](https://github.com/EvotecIT/OfficeIMO).<!-- singleLineInclude: intro. path: /docs/intro.include.md -->
+Extends [Verify](https://github.com/VerifyTests/Verify) to allow verification of Word, Excel, PowerPoint, Visio, PDF, XPS, OpenDocument, RTF, EPUB, Email, MHTML, OneNote, Project, Publisher, DjVu, iWork, and Access documents via [OfficeIMO](https://github.com/EvotecIT/OfficeIMO).<!-- singleLineInclude: intro. path: /docs/intro.include.md -->
 
 **See [Milestones](../../milestones?state=closed) for release notes.**
 
@@ -46,17 +46,35 @@ public static void Initialize() =>
 
 ### Outputs
 
-| Type                     | Source | Info                                      | Derived               |
-|--------------------------|--------|-------------------------------------------|-----------------------|
-| `WordDocument`           | docx   | properties, sections, paragraphs, tables  | `txt` of all paragraphs, `png` per page |
-| `ExcelDocument`          | xlsx   | properties, sheet names                   | `csv` and `png` per sheet |
-| `PowerPointPresentation` | pptx   | properties, slide count, hidden slides    | `txt` (with notes) and `png` per slide |
+| Type | Extensions | Source | Derived |
+|------|------------|--------|---------|
+| `WordDocument` | docx | docx | `txt` of all paragraphs, `png` per page |
+| `ExcelDocument` | xlsx | xlsx | `csv` and `png` per sheet |
+| `PowerPointPresentation` | pptx | pptx | `txt` (with notes) and `png` per slide |
+| `VisioDocument` | vsdx | vsdx | `txt` and `png` per page |
+| `PdfDocument`, `PdfReadDocument` | pdf | pdf (authored only) | `txt` and `png` per page |
+| `XpsDocument` | xps, oxps | xps | `txt` and `png` per page |
+| `OdfDocument` | odt, ods, odp, odg | same as loaded | odt: `txt`; ods: `csv` per sheet; odp: `txt` per slide |
+| `RtfDocument` | rtf | rtf | `txt` of all paragraphs |
+| `EpubPublication`, `EpubDocument` | epub | epub (authored only) | `txt` and `png` per chapter |
+| `EmailDocument` | eml, msg | eml | `txt`, `html`, and `png` of the body |
+| `MhtmlDocument` | mht, mhtml | mht | `html` and `png` of the page |
+| `OneNoteSection` | one | none | `txt` and `png` per page |
+| `ProjectDocument` | mpp | Project xml | `txt` of the task tree, `png` per page of the Gantt view |
+| `PublisherDocument` | pub | none | `txt` and `png` per page |
+| `DjVuDocument` | djvu | none | `txt` and `png` per page |
+| `IWorkSourceDocument` | pages, numbers, key | none | Pages: `txt` and `csv` per table; Numbers: `csv` per table; Keynote: `txt` per slide |
+| `AccessDocument` | accdb, mdb | none | `csv` per table |
 
-Images are rendered by OfficeIMO itself, with no Office install needed. `ExcludeDerivedTargets("png")` skips rendering.
+Each also has an info file of its properties and structure.
 
-The source document is made deterministic via [DeterministicIoPackaging](https://github.com/SimonCropp/DeterministicIoPackaging). Streams and files with a `docx`, `xlsx`, or `pptx` extension are loaded via OfficeIMO and verified the same way.
+Source is "none" where OfficeIMO reads the format but does not write it (Publisher, DjVu, iWork), or does not write it deterministically (OneNote, Access). Office packages (docx, xlsx, pptx, vsdx, xps, epub) are made deterministic via [DeterministicIoPackaging](https://github.com/SimonCropp/DeterministicIoPackaging). An `EpubPublication` is saved with `dcterms:modified` pinned to 2000-01-01. A Project schedule is only rendered when the project has a calendar.
 
-What is left out is controlled by Verify's own settings: see [Leaving out what was derived](https://github.com/VerifyTests/Verify/blob/main/docs/paged-documents.md#leaving-out-what-was-derived) and [Excluding targets](https://github.com/VerifyTests/Verify/blob/main/docs/converter.md#excluding-targets). Word pages, sheets, and slides are pages, so `PagesToInclude` limits them.
+Images are rendered by OfficeIMO itself, with no Office install needed. OpenDocument and RTF have no `png`, since OfficeIMO renders them only via its pdf packages. `ExcludeDerivedTargets("png")` skips rendering.
+
+Streams and files with any of the extensions above are loaded via OfficeIMO and verified the same way. Other Verify plugins that register the same extensions (for example `pdf` or `xlsx`) will conflict.
+
+What is left out is controlled by Verify's own settings: see [Leaving out what was derived](https://github.com/VerifyTests/Verify/blob/main/docs/paged-documents.md#leaving-out-what-was-derived) and [Excluding targets](https://github.com/VerifyTests/Verify/blob/main/docs/converter.md#excluding-targets). Pages, sheets, slides, and chapters are pages, so `PagesToInclude` limits them.
 
 
 ### WordDocument

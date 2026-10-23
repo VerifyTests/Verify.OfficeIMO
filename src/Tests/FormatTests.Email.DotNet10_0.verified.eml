@@ -1,0 +1,10 @@
+﻿Subject: The Subject
+From: From Name <from@example.com>
+To: to@example.com
+Date: Fri, 02 Jan 2026 03:04:05 +0000
+Message-ID: <message@example.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+SGVsbG8gV29ybGQ=

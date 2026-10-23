@@ -9,7 +9,6 @@
     <PackageReference Include="ProjectFiles" PrivateAssets="all" />
     <PackageReference Include="Verify.TUnit" />
     <PackageReference Include="TUnit" />
-    <PackageReference Include="Polyfill" PrivateAssets="all" />
     <PackageReference Include="Argon" />
     <PackageReference Include="DiffEngine" />
     <PackageReference Include="EmptyFiles" />
@@ -17,5 +16,6 @@
     <PackageReference Include="Verify" />
     <ProjectReference Include="..\Verify.OfficeIMO\Verify.OfficeIMO.csproj" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
+    <None Update="Samples\*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
