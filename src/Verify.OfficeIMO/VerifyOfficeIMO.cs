@@ -88,6 +88,20 @@ public static class VerifyOfficeIMO
             derived.Add(new("txt", string.Join('\n', paragraphs), "Text"));
         }
 
+        // Word renders every page in one pass, so the pages not wanted are dropped after
+        if (!context.IsDerivedTargetExcluded("png"))
+        {
+            var pages = document.ExportImages(OfficeImageExportFormat.Png);
+            for (var index = 0; index < pages.Count; index++)
+            {
+                var page = index + 1;
+                if (context.IsPageIncluded(page))
+                {
+                    derived.Add(Png(pages[index], $"Page{page}"));
+                }
+            }
+        }
+
         return new(info, Source("docx", stream, context), derived, cleanup);
     }
 
@@ -116,16 +130,25 @@ public static class VerifyOfficeIMO
         // limits the pages of any other document. Named for the sheet even when it is the only one,
         // so that a second sheet adds a file rather than renaming the first.
         List<Target> derived = [];
-        if (!context.IsDerivedTargetExcluded("csv"))
+        var includeCsv = !context.IsDerivedTargetExcluded("csv");
+        var includePng = !context.IsDerivedTargetExcluded("png");
+        var page = 0;
+        foreach (var sheet in document.Sheets)
         {
-            var page = 0;
-            foreach (var sheet in document.Sheets)
+            page++;
+            if (!context.IsPageIncluded(page))
             {
-                page++;
-                if (context.IsPageIncluded(page))
-                {
-                    derived.Add(new("csv", ToCsv(sheet), sheet.Name));
-                }
+                continue;
+            }
+
+            if (includeCsv)
+            {
+                derived.Add(new("csv", ToCsv(sheet), sheet.Name));
+            }
+
+            if (includePng)
+            {
+                derived.Add(Png(sheet.ExportImage(OfficeImageExportFormat.Png), sheet.Name));
             }
         }
 
@@ -161,15 +184,25 @@ public static class VerifyOfficeIMO
         };
 
         List<Target> derived = [];
-        if (!context.IsDerivedTargetExcluded("txt"))
+        var includeText = !context.IsDerivedTargetExcluded("txt");
+        var includePng = !context.IsDerivedTargetExcluded("png");
+        for (var index = 0; index < slides.Count; index++)
         {
-            for (var index = 0; index < slides.Count; index++)
+            var page = index + 1;
+            if (!context.IsPageIncluded(page))
             {
-                var page = index + 1;
-                if (context.IsPageIncluded(page))
-                {
-                    derived.Add(new("txt", ToText(slides[index]), $"Slide{page}"));
-                }
+                continue;
+            }
+
+            var slide = slides[index];
+            if (includeText)
+            {
+                derived.Add(new("txt", ToText(slide), $"Slide{page}"));
+            }
+
+            if (includePng)
+            {
+                derived.Add(Png(slide.ExportImage(OfficeImageExportFormat.Png), $"Slide{page}"));
             }
         }
 
@@ -187,6 +220,9 @@ public static class VerifyOfficeIMO
         stream.Position = 0;
         return new(extension, DeterministicPackage.Convert(stream));
     }
+
+    static Target Png(OfficeImageExportResult image, string name) =>
+        new("png", new MemoryStream(image.Bytes), name);
 
     static string ToCsv(ExcelSheet sheet)
     {

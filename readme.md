@@ -48,13 +48,15 @@ public static void Initialize() =>
 
 | Type                     | Source | Info                                      | Derived               |
 |--------------------------|--------|-------------------------------------------|-----------------------|
-| `WordDocument`           | docx   | properties, sections, paragraphs, tables  | `txt` of all paragraphs |
-| `ExcelDocument`          | xlsx   | properties, sheet names                   | `csv` per sheet       |
-| `PowerPointPresentation` | pptx   | properties, slide count, hidden slides    | `txt` per slide (with notes) |
+| `WordDocument`           | docx   | properties, sections, paragraphs, tables  | `txt` of all paragraphs, `png` per page |
+| `ExcelDocument`          | xlsx   | properties, sheet names                   | `csv` and `png` per sheet |
+| `PowerPointPresentation` | pptx   | properties, slide count, hidden slides    | `txt` (with notes) and `png` per slide |
+
+Images are rendered by OfficeIMO itself, with no Office install needed. `ExcludeDerivedTargets("png")` skips rendering.
 
 The source document is made deterministic via [DeterministicIoPackaging](https://github.com/SimonCropp/DeterministicIoPackaging). Streams and files with a `docx`, `xlsx`, or `pptx` extension are loaded via OfficeIMO and verified the same way.
 
-What is left out is controlled by Verify's own settings: see [Leaving out what was derived](https://github.com/VerifyTests/Verify/blob/main/docs/paged-documents.md#leaving-out-what-was-derived) and [Excluding targets](https://github.com/VerifyTests/Verify/blob/main/docs/converter.md#excluding-targets). Sheets and slides are pages, so `PagesToInclude` limits them.
+What is left out is controlled by Verify's own settings: see [Leaving out what was derived](https://github.com/VerifyTests/Verify/blob/main/docs/paged-documents.md#leaving-out-what-was-derived) and [Excluding targets](https://github.com/VerifyTests/Verify/blob/main/docs/converter.md#excluding-targets). Word pages, sheets, and slides are pages, so `PagesToInclude` limits them.
 
 
 ### WordDocument
@@ -75,7 +77,7 @@ public Task WordDocument()
     return Verify(document);
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L7-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-WordDocument' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L3-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-WordDocument' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -101,7 +103,7 @@ public Task ExcelDocument()
     return Verify(document);
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L24-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExcelDocument' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L20-L39' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExcelDocument' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -123,6 +125,6 @@ public Task PowerPointPresentation()
     return Verify(presentation);
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L45-L60' title='Snippet source file'>snippet source</a> | <a href='#snippet-PowerPointPresentation' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L41-L56' title='Snippet source file'>snippet source</a> | <a href='#snippet-PowerPointPresentation' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
