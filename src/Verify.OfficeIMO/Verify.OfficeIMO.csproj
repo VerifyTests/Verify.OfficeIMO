@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <TargetFramework>net10.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DeterministicIoPackaging" />
@@ -8,7 +8,6 @@
     <PackageReference Include="OfficeIMO.Excel" />
     <PackageReference Include="OfficeIMO.PowerPoint" />
     <PackageReference Include="OfficeIMO.Word" />
-    <PackageReference Include="Polyfill" PrivateAssets="all" />
     <PackageReference Include="Verify" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <PackageReference Include="Sbom" PrivateAssets="all" />
