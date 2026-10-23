@@ -1,0 +1,1 @@
+Extends [Verify](https://github.com/VerifyTests/Verify) to allow verification of Word, Excel, and PowerPoint documents via [OfficeIMO](https://github.com/EvotecIT/OfficeIMO).
