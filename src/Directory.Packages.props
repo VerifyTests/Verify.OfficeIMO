@@ -22,7 +22,7 @@
     <PackageVersion Include="OfficeIMO.Rtf" Version="3.5.1" />
     <PackageVersion Include="OfficeIMO.Visio" Version="3.5.1" />
     <PackageVersion Include="OfficeIMO.Xps" Version="3.5.1" />
-    <PackageVersion Include="OfficeIMO.Excel" Version="3.5.1" />
+    <PackageVersion Include="OfficeIMO.Excel" Version="3.5.2" />
     <PackageVersion Include="OfficeIMO.PowerPoint" Version="3.5.1" />
     <PackageVersion Include="OfficeIMO.Word" Version="3.5.1" />
     <PackageVersion Include="MarkdownSnippets.MsBuild" Version="28.5.1" />
