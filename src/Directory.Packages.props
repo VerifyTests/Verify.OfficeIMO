@@ -10,8 +10,8 @@
     <PackageVersion Include="OfficeIMO.DjVu" Version="3.5.1" />
     <PackageVersion Include="OfficeIMO.Email" Version="3.5.1" />
     <PackageVersion Include="OfficeIMO.Email.Image" Version="3.5.1" />
-    <PackageVersion Include="OfficeIMO.Epub" Version="3.5.1" />
-    <PackageVersion Include="OfficeIMO.Epub.Image" Version="3.5.1" />
+    <PackageVersion Include="OfficeIMO.Epub" Version="3.5.2" />
+    <PackageVersion Include="OfficeIMO.Epub.Image" Version="3.5.2" />
     <PackageVersion Include="OfficeIMO.IWork" Version="3.5.1" />
     <PackageVersion Include="OfficeIMO.Mhtml" Version="3.5.1" />
     <PackageVersion Include="OfficeIMO.OneNote" Version="3.5.1" />
