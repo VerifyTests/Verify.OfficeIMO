@@ -104,8 +104,69 @@ public static void InitializeFonts()
 static void AddFont(string directory, string family, string file, OfficeFontStyle style) =>
     VerifyOfficeIMO.Fonts.Add(family, File.ReadAllBytes(Path.Combine(directory, file)), style);
 ```
-<sup><a href='/src/Tests/ModuleInitializer.cs#L13-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-Fonts' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ModuleInitializer.cs#L21-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-Fonts' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+### Open XML SDK documents
+
+`WordprocessingDocument`, `SpreadsheetDocument`, and `PresentationDocument` from the [Open XML SDK](https://github.com/dotnet/Open-XML-SDK) can be verified as their OfficeIMO counterparts, giving the same outputs as `WordDocument`, `ExcelDocument`, and `PowerPointPresentation`. OfficeIMO cannot take over an open package, so the document is copied and the copy loaded, leaving the one passed in as it was. This is opt-in, since [Verify.OpenXml](https://github.com/VerifyTests/Verify.OpenXml) converts the same types:
+
+<!-- snippet: RegisterOpenXml -->
+<a id='snippet-RegisterOpenXml'></a>
+```cs
+[ModuleInitializer]
+public static void InitializeOpenXml() =>
+    VerifyOfficeIMO.RegisterOpenXml();
+```
+<sup><a href='/src/Tests/ModuleInitializer.cs#L13-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-RegisterOpenXml' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+<!-- snippet: WordprocessingDocument -->
+<a id='snippet-WordprocessingDocument'></a>
+```cs
+[Test]
+public Task WordprocessingDocument()
+{
+    using var document = OpenWord();
+    return Verify(document);
+}
+```
+<sup><a href='/src/Tests/OpenXmlTests.cs#L7-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-WordprocessingDocument' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Using with Verify.OpenXml
+
+Both packages convert Word, Excel, and PowerPoint, so when both are initialized, which one converts a document depends on the order they are initialized in. Verify resolves the two kinds of converter differently:
+
+ * **Types** (`WordprocessingDocument`, `SpreadsheetDocument`, `PresentationDocument`): the converter registered **first** is used.
+ * **Extensions** (`docx`, `xlsx`, `pptx`, as streams or with `VerifyFile`): the converter registered **last** is used.
+
+`VerifyOpenXml.Initialize` registers both kinds, `VerifyOfficeIMO.Initialize` registers the extensions, and `VerifyOfficeIMO.RegisterOpenXml` registers the types. Separate `[ModuleInitializer]` methods give no order that is clear from the code, so call them from one method, in the order that gives the split wanted.
+
+Verify.OpenXml for the Open XML SDK types and the extensions; Verify.OfficeIMO for the OfficeIMO types and every other format:
+
+```cs
+[ModuleInitializer]
+public static void Initialize()
+{
+    VerifyOfficeIMO.Initialize();
+    VerifyOpenXml.Initialize();
+}
+```
+
+Verify.OfficeIMO for everything; Verify.OpenXml registered but never used for these three formats:
+
+```cs
+[ModuleInitializer]
+public static void Initialize()
+{
+    VerifyOfficeIMO.RegisterOpenXml();
+    VerifyOpenXml.Initialize();
+    VerifyOfficeIMO.Initialize();
+}
+```
 
 
 ### WordDocument

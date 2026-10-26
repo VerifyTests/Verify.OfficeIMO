@@ -10,6 +10,14 @@ public static class ModuleInitializer
 
     #endregion
 
+    #region RegisterOpenXml
+
+    [ModuleInitializer]
+    public static void InitializeOpenXml() =>
+        VerifyOfficeIMO.RegisterOpenXml();
+
+    #endregion
+
     #region Fonts
 
     // Aptos is Office's default font, but is installed only with Office, so a build server renders a
