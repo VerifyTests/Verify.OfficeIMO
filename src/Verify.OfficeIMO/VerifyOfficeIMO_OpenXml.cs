@@ -21,11 +21,11 @@ public static partial class VerifyOfficeIMO
         // OfficeIMO cannot take over an open package, so it loads a copy, which is disposed once
         // Verify is done with it. The document the test passed in is left as it was.
         VerifierSettings.RegisterFileConverter<WordprocessingDocument>(
-            (document, context) => ConvertLoaded(WordDocument.Load(Copy(_ => document.Clone(_))), context));
+            (document, context) => ConvertLoaded(WordDocument.Load(Copy(document.Clone)), context));
         VerifierSettings.RegisterFileConverter<SpreadsheetDocument>(
-            (document, context) => ConvertLoaded(ExcelDocument.Load(Copy(_ => document.Clone(_))), context));
+            (document, context) => ConvertLoaded(ExcelDocument.Load(Copy(document.Clone)), context));
         VerifierSettings.RegisterFileConverter<PresentationDocument>(
-            (document, context) => ConvertLoaded(PowerPointPresentation.Load(Copy(_ => document.Clone(_))), context));
+            (document, context) => ConvertLoaded(PowerPointPresentation.Load(Copy(document.Clone)), context));
     }
 
     // Clone is only supported on the concrete document type, not on OpenXmlPackage

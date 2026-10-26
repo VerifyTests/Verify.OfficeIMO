@@ -40,7 +40,7 @@ public static partial class VerifyOfficeIMO
                     .OrderBy(_ => _.Order)
                     .Select(_ => _.StoryId)
                     .Distinct()
-                    .Select(_ => stories.TryGetValue(_, out var text) ? text : "")),
+                    .Select(_ => stories.GetValueOrDefault(_, ""))),
             _ => pages[_].Drawing.ExportImage(OfficeImageExportFormat.Png, Render(new OfficeImageExportOptions())).Bytes);
         return new(info, derived);
     }

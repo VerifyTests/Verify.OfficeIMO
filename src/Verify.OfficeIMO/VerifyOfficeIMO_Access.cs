@@ -26,7 +26,11 @@ public static partial class VerifyOfficeIMO
     static ConversionResult Convert(AccessDocument document, IReadOnlyDictionary<string, object> context, Func<Task>? cleanup)
     {
         var tables = document.Tables
-            .Where(_ => !_.IsSystem && !_.IsLinked)
+            .Where(_ => _ is
+            {
+                IsSystem: false,
+                IsLinked: false
+            })
             .ToList();
 
         var info = new

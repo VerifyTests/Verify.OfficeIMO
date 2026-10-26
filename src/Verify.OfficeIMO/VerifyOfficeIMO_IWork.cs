@@ -96,7 +96,7 @@ public static partial class VerifyOfficeIMO
         for (var row = 0; row < table.RowCount; row++)
         {
             var values = Enumerable.Range(0, table.ColumnCount)
-                .Select(column => Csv.Escape(cells.TryGetValue((row, column), out var text) ? text : ""));
+                .Select(column => Csv.Escape(cells.GetValueOrDefault((row, column), "")));
             builder.AppendLineN(string.Join(",", values));
         }
 
