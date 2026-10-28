@@ -1,5 +1,3 @@
-using OfficeIMO.Drawing;
-
 public static class ModuleInitializer
 {
     #region enable

@@ -1,4 +1,5 @@
 global using DocumentFormat.OpenXml.Packaging;
+global using OfficeIMO.Drawing;
 global using OfficeIMO.Email;
 global using OfficeIMO.Epub;
 global using OfficeIMO.Excel;
