@@ -40,7 +40,7 @@ Extends [Verify](https://github.com/VerifyTests/Verify) to allow verification of
 public static void Initialize() =>
     VerifyOfficeIMO.Initialize();
 ```
-<sup><a href='/src/Tests/ModuleInitializer.cs#L5-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-enable' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ModuleInitializer.cs#L3-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-enable' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -104,7 +104,7 @@ public static void InitializeFonts()
 static void AddFont(string directory, string family, string file, OfficeFontStyle style) =>
     VerifyOfficeIMO.Fonts.Add(family, File.ReadAllBytes(Path.Combine(directory, file)), style);
 ```
-<sup><a href='/src/Tests/ModuleInitializer.cs#L21-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-Fonts' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ModuleInitializer.cs#L19-L41' title='Snippet source file'>snippet source</a> | <a href='#snippet-Fonts' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -119,7 +119,7 @@ static void AddFont(string directory, string family, string file, OfficeFontStyl
 public static void InitializeOpenXml() =>
     VerifyOfficeIMO.RegisterOpenXml();
 ```
-<sup><a href='/src/Tests/ModuleInitializer.cs#L13-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-RegisterOpenXml' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ModuleInitializer.cs#L11-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-RegisterOpenXml' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: WordprocessingDocument -->
