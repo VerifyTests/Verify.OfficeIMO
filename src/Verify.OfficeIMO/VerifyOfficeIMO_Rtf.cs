@@ -1,5 +1,3 @@
-using OfficeIMO.Rtf;
-
 namespace VerifyTests;
 
 public static partial class VerifyOfficeIMO
@@ -33,7 +31,7 @@ public static partial class VerifyOfficeIMO
         List<Target> derived = [];
         if (!context.IsDerivedTargetExcluded("txt"))
         {
-            derived.Add(new("txt", string.Join("\n", paragraphs.Select(_ => _.ToPlainText())), "Text"));
+            derived.Add(new("txt", string.Join('\n', paragraphs.Select(_ => _.ToPlainText())), "Text"));
         }
 
         return new(info, Source("rtf", document.ToBytes(), context), derived);

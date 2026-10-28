@@ -1,5 +1,3 @@
-using OfficeIMO.IWork;
-
 namespace VerifyTests;
 
 public static partial class VerifyOfficeIMO
@@ -29,7 +27,7 @@ public static partial class VerifyOfficeIMO
                 List<Target> text = [];
                 if (!context.IsDerivedTargetExcluded("txt"))
                 {
-                    text.Add(new("txt", string.Join("\n", pages.Paragraphs), "Text"));
+                    text.Add(new("txt", string.Join('\n', pages.Paragraphs), "Text"));
                 }
 
                 text.AddRange(Tables(pages.Tables, context, ""));
@@ -89,18 +87,19 @@ public static partial class VerifyOfficeIMO
         }
     }
 
-    static string ToCsv(IWorkTable table)
+    static StringBuilder ToCsv(IWorkTable table)
     {
-        var cells = table.Cells.ToDictionary(_ => (_.Row, _.Column), _ => _.DisplayText);
+        var cells = table.Cells
+            .ToDictionary(_ => (_.Row, _.Column), _ => _.DisplayText);
         var builder = new StringBuilder();
         for (var row = 0; row < table.RowCount; row++)
         {
             var values = Enumerable.Range(0, table.ColumnCount)
                 .Select(column => Csv.Escape(cells.GetValueOrDefault((row, column), "")));
-            builder.AppendLineN(string.Join(",", values));
+            builder.AppendLineN(string.Join(',', values));
         }
 
-        return builder.ToString();
+        return builder;
     }
 
     static string ToText(IWorkKeynoteSlide slide)

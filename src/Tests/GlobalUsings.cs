@@ -1,1 +1,13 @@
+global using DocumentFormat.OpenXml.Packaging;
+global using OfficeIMO.Email;
+global using OfficeIMO.Epub;
+global using OfficeIMO.Excel;
+global using OfficeIMO.Mhtml;
+global using OfficeIMO.OneNote;
+global using OfficeIMO.OpenDocument;
+global using OfficeIMO.Pdf;
+global using OfficeIMO.PowerPoint;
+global using OfficeIMO.Project;
+global using OfficeIMO.Rtf;
+global using OfficeIMO.Visio;
 global using OfficeIMO.Word;

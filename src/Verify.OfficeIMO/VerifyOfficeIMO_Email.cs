@@ -1,5 +1,3 @@
-using OfficeIMO.Email;
-
 namespace VerifyTests;
 
 public static partial class VerifyOfficeIMO

@@ -1,6 +1,3 @@
-using OfficeIMO.Html;
-using OfficeIMO.Mhtml;
-
 namespace VerifyTests;
 
 public static partial class VerifyOfficeIMO

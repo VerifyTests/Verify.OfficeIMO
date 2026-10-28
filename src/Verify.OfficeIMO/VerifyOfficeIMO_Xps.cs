@@ -1,5 +1,3 @@
-using OfficeIMO.Xps;
-
 namespace VerifyTests;
 
 public static partial class VerifyOfficeIMO

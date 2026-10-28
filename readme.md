@@ -132,7 +132,7 @@ public Task WordprocessingDocument()
     return Verify(document);
 }
 ```
-<sup><a href='/src/Tests/OpenXmlTests.cs#L7-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-WordprocessingDocument' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/OpenXmlTests.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-WordprocessingDocument' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -175,9 +175,9 @@ public static void Initialize()
 <a id='snippet-WordDocument'></a>
 ```cs
 [Test]
-public Task WordDocument()
+public Task WordDocumentInstance()
 {
-    using var document = OfficeIMO.Word.WordDocument.Create();
+    using var document = WordDocument.Create();
     document.BuiltinDocumentProperties.Title = "The Title";
     document.AddParagraph("Hello World");
     document.AddParagraph("Second paragraph");
@@ -197,9 +197,9 @@ public Task WordDocument()
 <a id='snippet-ExcelDocument'></a>
 ```cs
 [Test]
-public Task ExcelDocument()
+public Task ExcelDocumentInstance()
 {
-    using var document = OfficeIMO.Excel.ExcelDocument.Create();
+    using var document = ExcelDocument.Create();
     document.BuiltinDocumentProperties.Title = "The Title";
     var sheet = document.AddWorksheet("Data");
     sheet.CellValue(1, 1, "ID");
@@ -223,9 +223,9 @@ public Task ExcelDocument()
 <a id='snippet-PowerPointPresentation'></a>
 ```cs
 [Test]
-public Task PowerPointPresentation()
+public Task PowerPointPresentationInstance()
 {
-    using var presentation = OfficeIMO.PowerPoint.PowerPointPresentation.Create();
+    using var presentation = PowerPointPresentation.Create();
     presentation.BuiltinDocumentProperties.Title = "The Title";
     var slide = presentation.AddSlide();
     slide.AddTextBox("Hello World");

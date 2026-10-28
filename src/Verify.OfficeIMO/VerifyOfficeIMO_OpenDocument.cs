@@ -1,5 +1,3 @@
-using OfficeIMO.OpenDocument;
-
 namespace VerifyTests;
 
 public static partial class VerifyOfficeIMO
@@ -33,7 +31,7 @@ public static partial class VerifyOfficeIMO
                 };
                 if (!context.IsDerivedTargetExcluded("txt"))
                 {
-                    derived.Add(new("txt", string.Join("\n", text.Paragraphs.Select(_ => _.Text)), "Text"));
+                    derived.Add(new("txt", string.Join('\n', text.Paragraphs.Select(_ => _.Text)), "Text"));
                 }
 
                 break;

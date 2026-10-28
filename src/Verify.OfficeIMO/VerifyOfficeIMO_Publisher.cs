@@ -1,5 +1,3 @@
-using OfficeIMO.Publisher;
-
 namespace VerifyTests;
 
 public static partial class VerifyOfficeIMO

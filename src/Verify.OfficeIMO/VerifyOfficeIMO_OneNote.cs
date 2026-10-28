@@ -1,5 +1,3 @@
-using OfficeIMO.OneNote;
-
 namespace VerifyTests;
 
 public static partial class VerifyOfficeIMO

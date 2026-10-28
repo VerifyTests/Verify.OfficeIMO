@@ -1,5 +1,3 @@
-using OfficeIMO.Access;
-
 namespace VerifyTests;
 
 public static partial class VerifyOfficeIMO

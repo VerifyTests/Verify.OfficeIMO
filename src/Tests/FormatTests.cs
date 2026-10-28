@@ -1,13 +1,3 @@
-using OfficeIMO.Email;
-using OfficeIMO.Epub;
-using OfficeIMO.Mhtml;
-using OfficeIMO.OneNote;
-using OfficeIMO.OpenDocument;
-using OfficeIMO.Pdf;
-using OfficeIMO.Project;
-using OfficeIMO.Rtf;
-using OfficeIMO.Visio;
-
 public class FormatTests
 {
     #region VisioDocument

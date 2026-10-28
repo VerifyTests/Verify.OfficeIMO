@@ -1,7 +1,3 @@
-using DocumentFormat.OpenXml.Packaging;
-using OfficeIMO.Excel;
-using OfficeIMO.PowerPoint;
-
 public class OpenXmlTests
 {
     #region WordprocessingDocument

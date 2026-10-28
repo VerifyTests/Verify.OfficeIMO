@@ -3,9 +3,9 @@ public class Samples
     #region WordDocument
 
     [Test]
-    public Task WordDocument()
+    public Task WordDocumentInstance()
     {
-        using var document = OfficeIMO.Word.WordDocument.Create();
+        using var document = WordDocument.Create();
         document.BuiltinDocumentProperties.Title = "The Title";
         document.AddParagraph("Hello World");
         document.AddParagraph("Second paragraph");
@@ -20,9 +20,9 @@ public class Samples
     #region ExcelDocument
 
     [Test]
-    public Task ExcelDocument()
+    public Task ExcelDocumentInstance()
     {
-        using var document = OfficeIMO.Excel.ExcelDocument.Create();
+        using var document = ExcelDocument.Create();
         document.BuiltinDocumentProperties.Title = "The Title";
         var sheet = document.AddWorksheet("Data");
         sheet.CellValue(1, 1, "ID");
@@ -41,9 +41,9 @@ public class Samples
     #region PowerPointPresentation
 
     [Test]
-    public Task PowerPointPresentation()
+    public Task PowerPointPresentationInstance()
     {
-        using var presentation = OfficeIMO.PowerPoint.PowerPointPresentation.Create();
+        using var presentation = PowerPointPresentation.Create();
         presentation.BuiltinDocumentProperties.Title = "The Title";
         var slide = presentation.AddSlide();
         slide.AddTextBox("Hello World");
@@ -64,9 +64,9 @@ public class Samples
     public async Task VerifyDocxFile()
     {
         using var stream = new MemoryStream();
-        using (var document = BuildWord())
+        await using (var document = BuildWord())
         {
-            document.Save(stream);
+            await document.SaveAsync(stream);
         }
 
         stream.Position = 0;
@@ -75,7 +75,7 @@ public class Samples
 
     static WordDocument BuildWord()
     {
-        var document = OfficeIMO.Word.WordDocument.Create();
+        var document = WordDocument.Create();
         document.AddParagraph("Hello World");
         return document;
     }

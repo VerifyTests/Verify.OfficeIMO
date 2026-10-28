@@ -1,5 +1,3 @@
-using OfficeIMO.DjVu;
-
 namespace VerifyTests;
 
 public static partial class VerifyOfficeIMO

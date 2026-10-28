@@ -1,6 +1,3 @@
-using OfficeIMO.Epub;
-using OfficeIMO.Epub.Image;
-
 namespace VerifyTests;
 
 public static partial class VerifyOfficeIMO
