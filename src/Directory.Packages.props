@@ -14,7 +14,7 @@
     <PackageVersion Include="OfficeIMO.Epub.Image" Version="3.6.0" />
     <PackageVersion Include="OfficeIMO.IWork" Version="3.6.0" />
     <PackageVersion Include="OfficeIMO.Mhtml" Version="3.6.0" />
-    <PackageVersion Include="OfficeIMO.OneNote" Version="3.6.0" />
+    <PackageVersion Include="OfficeIMO.OneNote" Version="3.6.1" />
     <PackageVersion Include="OfficeIMO.OpenDocument" Version="3.6.0" />
     <PackageVersion Include="OfficeIMO.Pdf" Version="3.6.0" />
     <PackageVersion Include="OfficeIMO.Project" Version="3.6.0" />
