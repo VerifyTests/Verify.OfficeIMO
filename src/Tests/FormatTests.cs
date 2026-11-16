@@ -22,11 +22,28 @@ public class FormatTests
     [Test]
     public Task Pdf()
     {
-        var document = PdfDocument.Create(_ => _.Content(_ => _
-                .H1("Hello World")
-                .AddParagraph("Second paragraph")))
+        var document = PdfDocument.Create(
+                _ => _.Content(_ => _
+                    .H1("Hello World")
+                    .AddParagraph("Second paragraph")),
+                AptosPdfOptions())
             .Meta(title: "The Title");
         return Verify(document);
+    }
+
+    // A generated pdf embeds the theme font installed on the machine (Aptos only where Office is
+    // installed, otherwise a fallback such as Calibri). VerifyOfficeIMO.Fonts applies only to
+    // rendering, so the pdf is given the repo's Aptos files to be the same everywhere.
+    static PdfCreateOptions AptosPdfOptions()
+    {
+        var directory = Path.Combine(ProjectFiles.ProjectDirectory, "..", "Fonts");
+        return new PdfCreateOptions()
+            .UseFontFamily(
+                "Aptos",
+                File.ReadAllBytes(Path.Combine(directory, "Aptos_400.ttf")),
+                File.ReadAllBytes(Path.Combine(directory, "Aptos_700.ttf")),
+                File.ReadAllBytes(Path.Combine(directory, "Aptos_400_Italic.ttf")),
+                File.ReadAllBytes(Path.Combine(directory, "Aptos_700_Italic.ttf")));
     }
 
     [Test]
