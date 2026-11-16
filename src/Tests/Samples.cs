@@ -6,7 +6,7 @@ public class Samples
     public Task WordDocumentInstance()
     {
         using var document = WordDocument.Create();
-        document.BuiltinDocumentProperties.Title = "The Title";
+        document.Properties.Title = "The Title";
         document.AddParagraph("Hello World");
         document.AddParagraph("Second paragraph");
         var table = document.AddTable(2, 2);
@@ -23,28 +23,28 @@ public class Samples
     public Task ExcelDocumentInstance()
     {
         using var document = ExcelDocument.Create();
-        document.BuiltinDocumentProperties.Title = "The Title";
-        var sheet = document.AddWorksheet("Data");
-        sheet.CellValue(1, 1, "ID");
-        sheet.CellValue(1, 2, "Name");
-        sheet.CellValue(2, 1, 1);
-        sheet.CellValue(2, 2, "John, Doe");
-        sheet.CellValue(3, 1, 2);
-        sheet.CellValue(3, 2, "Jane Smith");
-        var second = document.AddWorksheet("Second");
-        second.CellValue(1, 1, "Other");
+        document.Properties.Title = "The Title";
+        var sheet = document.AddSheet("Data");
+        sheet.Cell(1, 1).SetValue("ID");
+        sheet.Cell(1, 2).SetValue("Name");
+        sheet.Cell(2, 1).SetValue(1);
+        sheet.Cell(2, 2).SetValue("John, Doe");
+        sheet.Cell(3, 1).SetValue(2);
+        sheet.Cell(3, 2).SetValue("Jane Smith");
+        var second = document.AddSheet("Second");
+        second.Cell(1, 1).SetValue("Other");
         return Verify(document);
     }
 
     #endregion
 
-    #region PowerPointPresentation
+    #region PowerPointDocument
 
     [Test]
-    public Task PowerPointPresentationInstance()
+    public Task PowerPointDocumentInstance()
     {
-        using var presentation = PowerPointPresentation.Create();
-        presentation.BuiltinDocumentProperties.Title = "The Title";
+        using var presentation = PowerPointDocument.Create();
+        presentation.Properties.Title = "The Title";
         var slide = presentation.AddSlide();
         slide.AddTextBox("Hello World");
         slide.Notes.Text = "The notes";

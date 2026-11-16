@@ -1,0 +1,4 @@
+﻿{
+  Sections: 1,
+  Paragraphs: 1
+}

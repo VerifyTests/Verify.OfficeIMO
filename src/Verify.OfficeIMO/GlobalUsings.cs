@@ -10,6 +10,7 @@ global using OfficeIMO.Epub;
 global using OfficeIMO.Epub.Image;
 global using OfficeIMO.Excel;
 global using OfficeIMO.Html;
+global using OfficeIMO.Html.Pdf;
 global using OfficeIMO.IWork;
 global using OfficeIMO.Mhtml;
 global using OfficeIMO.OneNote;

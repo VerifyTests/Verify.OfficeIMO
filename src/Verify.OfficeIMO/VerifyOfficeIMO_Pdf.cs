@@ -6,8 +6,7 @@ public static partial class VerifyOfficeIMO
     {
         VerifierSettings.RegisterStreamConverter(
             "pdf",
-            (_, stream, context) => Convert(PdfReadDocument.Open(stream), context));
-        VerifierSettings.RegisterFileConverter<PdfReadDocument>(Convert);
+            (_, stream, context) => ConvertLoaded(PdfDocument.Load(stream), context));
         VerifierSettings.RegisterFileConverter<PdfDocument>(Convert);
     }
 
@@ -15,28 +14,30 @@ public static partial class VerifyOfficeIMO
     static ConversionResult Convert(PdfDocument document, IReadOnlyDictionary<string, object> context)
     {
         var bytes = document.ToBytes();
-        var result = Convert(PdfReadDocument.Open(bytes), context);
+        var result = ConvertLoaded(PdfDocument.Load(new MemoryStream(bytes)), context);
         return new(result.Info, Source("pdf", bytes, context), result.Targets.ToList());
     }
 
-    static ConversionResult Convert(PdfReadDocument document, IReadOnlyDictionary<string, object> context)
+    static ConversionResult ConvertLoaded(PdfDocument document, IReadOnlyDictionary<string, object> context)
     {
-        var metadata = document.Metadata;
-        var pages = document.Pages;
+        var properties = document.Properties;
+        var pageCount = document.GetPageLayouts().Count;
         var info = new
         {
-            metadata.Title,
-            metadata.Author,
-            metadata.Subject,
-            metadata.Keywords,
-            PageCount = pages.Count
+            properties.Title,
+            properties.Author,
+            properties.Subject,
+            properties.Keywords,
+            PageCount = pageCount
         };
 
+        var images = new Lazy<IReadOnlyList<OfficeImageExportResult>>(
+            () => document.ToImages(Render(new PdfImageExportOptions())));
         var derived = Pages(
             context,
-            pages.Count,
-            _ => pages[_].ExtractText(),
-            _ => pages[_].ExportImage(OfficeImageExportFormat.Png, Render(new PdfImageExportOptions())).Bytes);
+            pageCount,
+            _ => document.Pages.Extract(_ + 1).ExtractText(),
+            _ => images.Value[_].Bytes);
         return new(info, derived);
     }
 }

@@ -1,0 +1,13 @@
+﻿Subject: The Subject
+Snapshot-Content-Location: https://example.com/page.html
+MIME-Version: 1.0
+Content-Type: multipart/related; boundary="=_OfficeIMO_related_28caf94a9e9d44d5"; type="text/html"
+
+--=_OfficeIMO_related_28caf94a9e9d44d5
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+Content-Location: https://example.com/page.html
+
+PGh0bWw+PGJvZHk+PGgxPkhlbGxvIFdvcmxkPC9oMT48cD5TZWNvbmQgcGFyYWdyYXBoPC9wPjwv
+Ym9keT48L2h0bWw+
+--=_OfficeIMO_related_28caf94a9e9d44d5--

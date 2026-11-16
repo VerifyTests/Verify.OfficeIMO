@@ -6,7 +6,7 @@ public static partial class VerifyOfficeIMO
     {
         VerifierSettings.RegisterStreamConverter(
             "one",
-            (_, stream, context) => Convert(OneNoteSectionReader.Read(stream), context));
+            (_, stream, context) => Convert(OneNoteSection.Load(stream), context));
         VerifierSettings.RegisterFileConverter<OneNoteSection>(Convert);
     }
 
@@ -24,7 +24,7 @@ public static partial class VerifyOfficeIMO
             context,
             pages.Count,
             _ => ToText(pages[_]),
-            Rendered(() => section.ExportImages(OfficeImageExportFormat.Png, Render(new OneNotePageBatchRenderingOptions()))));
+            Rendered(() => section.ToImages(OfficeImageExportFormat.Png, Render(new OneNotePageBatchRenderingOptions()))));
         return new(info, derived);
     }
 

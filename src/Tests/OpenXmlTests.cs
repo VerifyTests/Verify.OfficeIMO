@@ -17,11 +17,11 @@ public class OpenXmlTests
         using var stream = new MemoryStream();
         using (var source = ExcelDocument.Create())
         {
-            var sheet = source.AddWorksheet("Data");
-            sheet.CellValue(1, 1, "ID");
-            sheet.CellValue(1, 2, "Name");
-            sheet.CellValue(2, 1, 1);
-            sheet.CellValue(2, 2, "John Doe");
+            var sheet = source.AddSheet("Data");
+            sheet.Cell(1, 1).SetValue("ID");
+            sheet.Cell(1, 2).SetValue("Name");
+            sheet.Cell(2, 1).SetValue(1);
+            sheet.Cell(2, 2).SetValue("John Doe");
             source.Save(stream);
         }
 
@@ -34,7 +34,7 @@ public class OpenXmlTests
     public Task PresentationDocument()
     {
         using var stream = new MemoryStream();
-        using (var source = PowerPointPresentation.Create())
+        using (var source = PowerPointDocument.Create())
         {
             source.AddSlide().AddTextBox("Hello World");
             source.Save(stream);

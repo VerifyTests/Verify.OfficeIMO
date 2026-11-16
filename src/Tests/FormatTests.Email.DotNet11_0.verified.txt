@@ -1,0 +1,8 @@
+﻿{
+  Subject: The Subject,
+  From: From Name <from@example.com>,
+  Recipients: [
+    To: to@example.com
+  ],
+  Date: DateTimeOffset_1
+}

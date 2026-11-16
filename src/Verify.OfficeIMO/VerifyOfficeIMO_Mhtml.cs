@@ -32,7 +32,7 @@ public static partial class VerifyOfficeIMO
         {
             var options = Render(new HtmlRenderOptions());
             document.ConfigureRenderOptions(options);
-            var image = document.HtmlDocument.ExportImage(OfficeImageExportFormat.Png, options);
+            var image = document.HtmlDocument.ToImage(OfficeImageExportFormat.Png, options);
             derived.Add(new("png", new MemoryStream(image.Bytes), "Page"));
         }
 

@@ -1,0 +1,1 @@
+﻿This is a test XPS file. The XPS file is checking DrtAddDocStructure.

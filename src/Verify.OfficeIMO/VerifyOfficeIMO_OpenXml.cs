@@ -25,7 +25,7 @@ public static partial class VerifyOfficeIMO
         VerifierSettings.RegisterFileConverter<SpreadsheetDocument>(
             (document, context) => ConvertLoaded(ExcelDocument.Load(Copy(document.Clone)), context));
         VerifierSettings.RegisterFileConverter<PresentationDocument>(
-            (document, context) => ConvertLoaded(PowerPointPresentation.Load(Copy(document.Clone)), context));
+            (document, context) => ConvertLoaded(PowerPointDocument.Load(Copy(document.Clone)), context));
     }
 
     // Clone is only supported on the concrete document type, not on OpenXmlPackage

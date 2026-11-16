@@ -13,7 +13,7 @@ public static partial class VerifyOfficeIMO
     // OfficeIMO does not render rtf itself (only via its pdf package), so there is no png
     static ConversionResult Convert(RtfDocument document, IReadOnlyDictionary<string, object> context)
     {
-        var properties = document.Info;
+        var properties = document.Properties;
         var paragraphs = document.Paragraphs;
         var info = new
         {

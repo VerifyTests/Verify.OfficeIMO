@@ -6,13 +6,13 @@ public static partial class VerifyOfficeIMO
     {
         VerifierSettings.RegisterStreamConverter(
             "pages",
-            (_, stream, context) => Convert(IWorkSourceDocument.Open(stream), context));
+            (_, stream, context) => Convert(IWorkSourceDocument.Load(stream), context));
         VerifierSettings.RegisterStreamConverter(
             "numbers",
-            (_, stream, context) => Convert(IWorkSourceDocument.Open(stream), context));
+            (_, stream, context) => Convert(IWorkSourceDocument.Load(stream), context));
         VerifierSettings.RegisterStreamConverter(
             "key",
-            (_, stream, context) => Convert(IWorkSourceDocument.Open(stream), context));
+            (_, stream, context) => Convert(IWorkSourceDocument.Load(stream), context));
         VerifierSettings.RegisterFileConverter<IWorkSourceDocument>(Convert);
     }
 

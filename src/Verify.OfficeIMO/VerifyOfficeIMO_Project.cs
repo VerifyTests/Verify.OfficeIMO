@@ -50,7 +50,7 @@ public static partial class VerifyOfficeIMO
                     context,
                     pages.Count,
                     null,
-                    _ => pages[_].Drawing.ExportImage(OfficeImageExportFormat.Png, Render(new OfficeImageExportOptions())).Bytes));
+                    _ => pages[_].Drawing.ToImage(OfficeImageExportFormat.Png, Render(new OfficeImageExportOptions())).Bytes));
         }
 
         Target? source = null;
@@ -63,7 +63,7 @@ public static partial class VerifyOfficeIMO
                 document.ToXml(
                     new()
                     {
-                        LossPolicy = OfficeConversionLossPolicy.Allow
+                        AllowLoss = true
                     }));
         }
 

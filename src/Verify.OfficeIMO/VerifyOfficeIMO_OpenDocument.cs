@@ -17,7 +17,7 @@ public static partial class VerifyOfficeIMO
     // OfficeIMO does not render OpenDocument itself (only via its pdf packages), so there is no png
     static ConversionResult Convert(OdfDocument document, IReadOnlyDictionary<string, object> context)
     {
-        var metadata = document.Metadata;
+        var metadata = document.Properties;
         List<Target> derived = [];
         string extension;
         object? content;

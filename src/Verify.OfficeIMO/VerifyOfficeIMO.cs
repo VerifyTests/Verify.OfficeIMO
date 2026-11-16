@@ -38,10 +38,10 @@ public static partial class VerifyOfficeIMO
             (_, stream, context) => ConvertLoaded(ExcelDocument.Load(stream), context));
         VerifierSettings.RegisterStreamConverter(
             "pptx",
-            (_, stream, context) => ConvertLoaded(PowerPointPresentation.Load(stream), context));
+            (_, stream, context) => ConvertLoaded(PowerPointDocument.Load(stream), context));
         VerifierSettings.RegisterFileConverter<WordDocument>(Convert);
         VerifierSettings.RegisterFileConverter<ExcelDocument>(Convert);
-        VerifierSettings.RegisterFileConverter<PowerPointPresentation>(Convert);
+        VerifierSettings.RegisterFileConverter<PowerPointDocument>(Convert);
         RegisterAccess();
         RegisterDjVu();
         RegisterEmail();
@@ -136,7 +136,7 @@ public static partial class VerifyOfficeIMO
     static ConversionResult ConvertLoaded(ExcelDocument document, IReadOnlyDictionary<string, object> context) =>
         Convert(document, context, Dispose(document));
 
-    static ConversionResult ConvertLoaded(PowerPointPresentation document, IReadOnlyDictionary<string, object> context) =>
+    static ConversionResult ConvertLoaded(PowerPointDocument document, IReadOnlyDictionary<string, object> context) =>
         Convert(document, context, Dispose(document));
 
     static Func<Task> Dispose(IDisposable document) =>
@@ -166,7 +166,7 @@ public static partial class VerifyOfficeIMO
                          [];
         }
 
-        var properties = document.BuiltinDocumentProperties;
+        var properties = document.Properties;
         var info = new WordInfo
         {
             Title = properties.Title,
@@ -190,7 +190,7 @@ public static partial class VerifyOfficeIMO
         // Word renders every page in one pass, so the pages not wanted are dropped after
         if (!context.IsDerivedTargetExcluded("png"))
         {
-            var pages = document.ExportImages(OfficeImageExportFormat.Png, Render(new WordImageExportOptions()));
+            var pages = document.ToImages(OfficeImageExportFormat.Png, Render(new WordImageExportOptions()));
             for (var index = 0; index < pages.Count; index++)
             {
                 var page = index + 1;
@@ -212,7 +212,7 @@ public static partial class VerifyOfficeIMO
         using var stream = new MemoryStream();
         document.Save(stream);
 
-        var properties = document.BuiltinDocumentProperties;
+        var properties = document.Properties;
         var info = new ExcelInfo
         {
             Title = properties.Title,
@@ -247,17 +247,17 @@ public static partial class VerifyOfficeIMO
 
             if (includePng)
             {
-                derived.Add(Png(sheet.ExportImage(OfficeImageExportFormat.Png, Render(new ExcelWorksheetImageExportOptions())), sheet.Name));
+                derived.Add(Png(sheet.ToImage(OfficeImageExportFormat.Png, Render(new ExcelImageExportOptions())), sheet.Name));
             }
         }
 
         return new(info, Source("xlsx", stream, context), derived, cleanup);
     }
 
-    static ConversionResult Convert(PowerPointPresentation presentation, IReadOnlyDictionary<string, object> context) =>
+    static ConversionResult Convert(PowerPointDocument presentation, IReadOnlyDictionary<string, object> context) =>
         Convert(presentation, context, null);
 
-    static ConversionResult Convert(PowerPointPresentation presentation, IReadOnlyDictionary<string, object> context, Func<Task>? cleanup)
+    static ConversionResult Convert(PowerPointDocument presentation, IReadOnlyDictionary<string, object> context, Func<Task>? cleanup)
     {
         using var stream = new MemoryStream(presentation.ToBytes());
 
@@ -268,7 +268,7 @@ public static partial class VerifyOfficeIMO
             .Select(_ => _.index + 1)
             .ToList();
 
-        var properties = presentation.BuiltinDocumentProperties;
+        var properties = presentation.Properties;
         var info = new PowerPointInfo
         {
             Title = properties.Title,
@@ -301,7 +301,7 @@ public static partial class VerifyOfficeIMO
 
             if (includePng)
             {
-                derived.Add(Png(slide.ExportImage(OfficeImageExportFormat.Png, Render(new PowerPointImageExportOptions())), $"Slide{page}"));
+                derived.Add(Png(slide.ToImage(OfficeImageExportFormat.Png, Render(new PowerPointImageExportOptions())), $"Slide{page}"));
             }
         }
 
@@ -326,7 +326,7 @@ public static partial class VerifyOfficeIMO
     static string ToCsv(ExcelSheet sheet)
     {
         var builder = new StringBuilder();
-        if (!A1.TryParseRange(sheet.UsedRangeA1, out var firstRow, out var firstColumn, out var lastRow, out var lastColumn))
+        if (!ExcelA1.TryParseRange(sheet.UsedRange.Address, out var firstRow, out var firstColumn, out var lastRow, out var lastColumn))
         {
             return string.Empty;
         }

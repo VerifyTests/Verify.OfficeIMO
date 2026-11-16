@@ -1,3 +1,4 @@
+global using OfficeIMO;
 global using DocumentFormat.OpenXml.Packaging;
 global using OfficeIMO.Drawing;
 global using OfficeIMO.Email;

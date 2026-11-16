@@ -1,0 +1,9 @@
+﻿{
+  Name: OfficeIMO delivery,
+  Title: OfficeIMO delivery,
+  Author: OfficeIMO,
+  Subject: Synthetic interoperability fixture,
+  Company: OfficeIMO,
+  Manager: OfficeIMO,
+  TaskCount: 5
+}

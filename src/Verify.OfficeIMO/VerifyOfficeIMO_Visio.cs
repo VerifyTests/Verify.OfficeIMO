@@ -15,8 +15,8 @@ public static partial class VerifyOfficeIMO
         var pages = document.Pages;
         var info = new
         {
-            document.Title,
-            document.Author,
+            document.Properties.Title,
+            document.Properties.Author,
             Pages = pages.Select(_ => _.Name).ToList()
         };
 
@@ -28,7 +28,7 @@ public static partial class VerifyOfficeIMO
                 pages[_].Shapes
                     .Select(_ => _.Text)
                     .Where(_ => !string.IsNullOrEmpty(_))),
-            _ => pages[_].ToImage(Render(new VisioImageExportOptions())).AsPng().Export().Bytes);
+            _ => pages[_].ToImage(OfficeImageExportFormat.Png, Render(new VisioImageExportOptions())).Bytes);
         return new(info, DeterministicSource("vsdx", document.ToBytes(), context), derived);
     }
 }

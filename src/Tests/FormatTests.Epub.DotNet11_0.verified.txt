@@ -1,0 +1,8 @@
+﻿{
+  Title: The Title,
+  Language: en,
+  Chapters: [
+    Chapter One,
+    Chapter Two
+  ]
+}

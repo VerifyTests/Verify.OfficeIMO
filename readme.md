@@ -51,7 +51,7 @@ public static void Initialize() =>
 |------|------------|--------|---------|
 | `WordDocument` | docx | docx | `txt` of all paragraphs, `png` per page |
 | `ExcelDocument` | xlsx | xlsx | `csv` and `png` per sheet |
-| `PowerPointPresentation` | pptx | pptx | `txt` (with notes) and `png` per slide |
+| `PowerPointDocument` | pptx | pptx | `txt` (with notes) and `png` per slide |
 | `VisioDocument` | vsdx | vsdx | `txt` and `png` per page |
 | `PdfDocument`, `PdfReadDocument` | pdf | pdf (authored only) | `txt` and `png` per page |
 | `XpsDocument` | xps, oxps | xps | `txt` and `png` per page |
@@ -111,7 +111,7 @@ static void AddFont(string directory, string family, string file, OfficeFontStyl
 
 ### Open XML SDK documents
 
-`WordprocessingDocument`, `SpreadsheetDocument`, and `PresentationDocument` from the [Open XML SDK](https://github.com/dotnet/Open-XML-SDK) can be verified as their OfficeIMO counterparts, giving the same outputs as `WordDocument`, `ExcelDocument`, and `PowerPointPresentation`. OfficeIMO cannot take over an open package, so the document is copied and the copy loaded, leaving the one passed in as it was. This is opt-in, since [Verify.OpenXml](https://github.com/VerifyTests/Verify.OpenXml) converts the same types:
+`WordprocessingDocument`, `SpreadsheetDocument`, and `PresentationDocument` from the [Open XML SDK](https://github.com/dotnet/Open-XML-SDK) can be verified as their OfficeIMO counterparts, giving the same outputs as `WordDocument`, `ExcelDocument`, and `PowerPointDocument`. OfficeIMO cannot take over an open package, so the document is copied and the copy loaded, leaving the one passed in as it was. This is opt-in, since [Verify.OpenXml](https://github.com/VerifyTests/Verify.OpenXml) converts the same types:
 
 <!-- snippet: RegisterOpenXml -->
 <a id='snippet-RegisterOpenXml'></a>
@@ -179,7 +179,7 @@ public static void Initialize()
 public Task WordDocumentInstance()
 {
     using var document = WordDocument.Create();
-    document.BuiltinDocumentProperties.Title = "The Title";
+    document.Properties.Title = "The Title";
     document.AddParagraph("Hello World");
     document.AddParagraph("Second paragraph");
     var table = document.AddTable(2, 2);
@@ -201,16 +201,16 @@ public Task WordDocumentInstance()
 public Task ExcelDocumentInstance()
 {
     using var document = ExcelDocument.Create();
-    document.BuiltinDocumentProperties.Title = "The Title";
-    var sheet = document.AddWorksheet("Data");
-    sheet.CellValue(1, 1, "ID");
-    sheet.CellValue(1, 2, "Name");
-    sheet.CellValue(2, 1, 1);
-    sheet.CellValue(2, 2, "John, Doe");
-    sheet.CellValue(3, 1, 2);
-    sheet.CellValue(3, 2, "Jane Smith");
-    var second = document.AddWorksheet("Second");
-    second.CellValue(1, 1, "Other");
+    document.Properties.Title = "The Title";
+    var sheet = document.AddSheet("Data");
+    sheet.Cell(1, 1).SetValue("ID");
+    sheet.Cell(1, 2).SetValue("Name");
+    sheet.Cell(2, 1).SetValue(1);
+    sheet.Cell(2, 2).SetValue("John, Doe");
+    sheet.Cell(3, 1).SetValue(2);
+    sheet.Cell(3, 2).SetValue("Jane Smith");
+    var second = document.AddSheet("Second");
+    second.Cell(1, 1).SetValue("Other");
     return Verify(document);
 }
 ```
@@ -218,16 +218,16 @@ public Task ExcelDocumentInstance()
 <!-- endSnippet -->
 
 
-### PowerPointPresentation
+### PowerPointDocument
 
-<!-- snippet: PowerPointPresentation -->
-<a id='snippet-PowerPointPresentation'></a>
+<!-- snippet: PowerPointDocument -->
+<a id='snippet-PowerPointDocument'></a>
 ```cs
 [Test]
-public Task PowerPointPresentationInstance()
+public Task PowerPointDocumentInstance()
 {
-    using var presentation = PowerPointPresentation.Create();
-    presentation.BuiltinDocumentProperties.Title = "The Title";
+    using var presentation = PowerPointDocument.Create();
+    presentation.Properties.Title = "The Title";
     var slide = presentation.AddSlide();
     slide.AddTextBox("Hello World");
     slide.Notes.Text = "The notes";
@@ -236,6 +236,6 @@ public Task PowerPointPresentationInstance()
     return Verify(presentation);
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L41-L56' title='Snippet source file'>snippet source</a> | <a href='#snippet-PowerPointPresentation' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L41-L56' title='Snippet source file'>snippet source</a> | <a href='#snippet-PowerPointDocument' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 

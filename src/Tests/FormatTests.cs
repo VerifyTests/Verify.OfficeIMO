@@ -6,9 +6,13 @@ public class FormatTests
     public Task Visio()
     {
         var document = VisioDocument.Create();
-        document.Title = "The Title";
+        document.Properties.Title = "The Title";
         var page = document.AddPage("First");
-        var shape = page.AddRectangle(1, 1, 2, 1);
+        var shape = page.AddRectangle(
+            OfficeLength.Inches(1),
+            OfficeLength.Inches(1),
+            OfficeLength.Inches(2),
+            OfficeLength.Inches(1));
         shape.Text = "Hello World";
         return Verify(document);
     }
@@ -20,7 +24,7 @@ public class FormatTests
     {
         var document = PdfDocument.Create(_ => _.Content(_ => _
                 .H1("Hello World")
-                .Paragraph(_ => _.Text("Second paragraph"))))
+                .AddParagraph("Second paragraph")))
             .Meta(title: "The Title");
         return Verify(document);
     }
@@ -29,7 +33,7 @@ public class FormatTests
     public Task Odt()
     {
         var document = OdtDocument.Create();
-        document.Metadata.Title = "The Title";
+        document.Properties.Title = "The Title";
         document.AddParagraph("Hello World");
         document.AddParagraph("Second paragraph");
         return Verify(document);
@@ -51,7 +55,7 @@ public class FormatTests
     public Task Rtf()
     {
         var document = RtfDocument.Create();
-        document.Info.Title = "The Title";
+        document.Properties.Title = "The Title";
         document.AddParagraph("Hello World");
         document.AddParagraph("Second paragraph");
         return Verify(document);
