@@ -236,12 +236,12 @@
       <FixedCost>0</FixedCost>
       <PercentComplete>0</PercentComplete>
       <PercentWorkComplete>0</PercentWorkComplete>
-      <Cost>500000.00000000005820766091347</Cost>
+      <Cost>500000</Cost>
       <ActualDuration>PT0H0M0S</ActualDuration>
       <ActualCost>0</ActualCost>
       <ActualWork>PT0H0M0S</ActualWork>
       <RemainingDuration>PT64H0M0S</RemainingDuration>
-      <RemainingCost>500000.00000000005820766091347</RemainingCost>
+      <RemainingCost>500000</RemainingCost>
       <RemainingWork>PT40H0M0S</RemainingWork>
       <ConstraintType>0</ConstraintType>
       <Baseline>
@@ -251,7 +251,7 @@
         <Duration>PT64H0M0S</Duration>
         <DurationFormat>39</DurationFormat>
         <Work>PT40H0M0S</Work>
-        <Cost>500000.00000000005820766091347</Cost>
+        <Cost>500000</Cost>
       </Baseline>
       <Active>1</Active>
       <Manual>0</Manual>
@@ -282,12 +282,12 @@
       <FixedCost>0</FixedCost>
       <PercentComplete>0</PercentComplete>
       <PercentWorkComplete>0</PercentWorkComplete>
-      <Cost>500000.00000000005820766091347</Cost>
+      <Cost>500000</Cost>
       <ActualDuration>PT0H0M0S</ActualDuration>
       <ActualCost>0</ActualCost>
       <ActualWork>PT0H0M0S</ActualWork>
       <RemainingDuration>PT64H0M0S</RemainingDuration>
-      <RemainingCost>500000.00000000005820766091347</RemainingCost>
+      <RemainingCost>500000</RemainingCost>
       <RemainingWork>PT40H0M0S</RemainingWork>
       <ConstraintType>0</ConstraintType>
       <Baseline>
@@ -297,7 +297,7 @@
         <Duration>PT64H0M0S</Duration>
         <DurationFormat>39</DurationFormat>
         <Work>PT40H0M0S</Work>
-        <Cost>500000.00000000005820766091347</Cost>
+        <Cost>500000</Cost>
       </Baseline>
       <Active>1</Active>
       <Manual>0</Manual>
@@ -374,12 +374,12 @@
       <FixedCost>0</FixedCost>
       <PercentComplete>0</PercentComplete>
       <PercentWorkComplete>0</PercentWorkComplete>
-      <Cost>500000.00000000005820766091347</Cost>
+      <Cost>500000</Cost>
       <ActualDuration>PT0H0M0S</ActualDuration>
       <ActualCost>0</ActualCost>
       <ActualWork>PT0H0M0S</ActualWork>
       <RemainingDuration>PT40H0M0S</RemainingDuration>
-      <RemainingCost>500000.00000000005820766091347</RemainingCost>
+      <RemainingCost>500000</RemainingCost>
       <RemainingWork>PT40H0M0S</RemainingWork>
       <ConstraintType>0</ConstraintType>
       <PredecessorLink>
@@ -399,7 +399,7 @@
         <Duration>PT40H0M0S</Duration>
         <DurationFormat>39</DurationFormat>
         <Work>PT40H0M0S</Work>
-        <Cost>500000.00000000005820766091347</Cost>
+        <Cost>500000</Cost>
       </Baseline>
       <Active>1</Active>
       <Manual>0</Manual>
@@ -495,16 +495,16 @@
       <ActualWork>PT0H0M0S</ActualWork>
       <RemainingWork>PT40H0M0S</RemainingWork>
       <StandardRate>125</StandardRate>
-      <Cost>500000.00000000005820766091347</Cost>
+      <Cost>500000</Cost>
       <OvertimeRate>0</OvertimeRate>
       <CostPerUse>0</CostPerUse>
       <ActualCost>0</ActualCost>
-      <RemainingCost>500000.00000000005820766091347</RemainingCost>
+      <RemainingCost>500000</RemainingCost>
       <CalendarUID>3</CalendarUID>
       <Baseline>
         <Number>0</Number>
         <Work>PT40H0M0S</Work>
-        <Cost>500000.00000000005820766091347</Cost>
+        <Cost>500000</Cost>
       </Baseline>
       <IsCostResource>0</IsCostResource>
     </Resource>
@@ -539,9 +539,9 @@
       <ResourceUID>1</ResourceUID>
       <ActualCost>0</ActualCost>
       <ActualWork>PT0H0M0S</ActualWork>
-      <Cost>500000.00000000005820766091347</Cost>
+      <Cost>500000</Cost>
       <Finish>2026-10-14T17:00:00</Finish>
-      <RemainingCost>500000.00000000005820766091347</RemainingCost>
+      <RemainingCost>500000</RemainingCost>
       <RemainingWork>PT40H0M0S</RemainingWork>
       <Start>2026-10-08T08:00:00</Start>
       <Units>1</Units>
@@ -551,7 +551,7 @@
         <Start>2026-10-08T08:00:00</Start>
         <Finish>2026-10-14T17:00:00</Finish>
         <Work>PT40H0M0S</Work>
-        <Cost>500000.00000000005820766091347</Cost>
+        <Cost>500000</Cost>
       </Baseline>
     </Assignment>
     <Assignment>
